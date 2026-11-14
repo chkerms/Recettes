@@ -5,171 +5,225 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#c8553d">
+<meta name="theme-color" content="#262422">
 <title>Mes recettes</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&display=swap">
 <style>
 :root{
-  --bg:#faf7f2; --surface:#ffffff; --ink:#2b2622; --muted:#7a7068; --line:#e8e0d6;
-  --accent:#c8553d; --accent-ink:#ffffff;
-  --viande:#b5523b; --poisson:#2f6f8f; --veggie:#4f8a34; --fromage:#b8861c;
-  --done:#b9b0a6;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#1d1a17; --surface:#28241f; --ink:#f1ebe3; --muted:#a89d92; --line:#3b352e;
-    --accent:#e0735a; --done:#6b625a;
-    --viande:#e07a62; --poisson:#5fa3c4; --veggie:#7fbf5f; --fromage:#e0b04a;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#1d1a17; --surface:#28241f; --ink:#f1ebe3; --muted:#a89d92; --line:#3b352e;
-  --accent:#e0735a; --done:#6b625a;
-  --viande:#e07a62; --poisson:#5fa3c4; --veggie:#7fbf5f; --fromage:#e0b04a;
+  --desk:#262422; --paper:#F7F4EC; --paper-2:#EDE7D8; --ink:#2A2622; --muted:#7A7064; --rule:#CFC6B4;
+  --accent:#D63826; --serif:"Fraunces",Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box}
-html,body{margin:0;height:100%}
-body{background:var(--bg);color:var(--ink);font-family:Roboto,"Segoe UI","Helvetica Neue",Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-button{font:inherit;color:inherit;cursor:pointer}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--desk);color:var(--ink);font-family:var(--serif);-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;user-select:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .hidden{display:none!important}
 
-/* ---------- Accueil ---------- */
-#home{max-width:1400px;margin:0 auto;padding:20px 24px 40px}
-.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
-.top h1{font-family:Georgia,"Times New Roman",serif;font-size:30px;margin:0;font-weight:700;letter-spacing:.2px}
-.top h1 span{color:var(--accent)}
-.search{flex:1;min-width:240px;position:relative}
-.search input{width:100%;font-size:19px;padding:12px 44px 12px 16px;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);outline:none;-webkit-appearance:none}
-.search input:focus{border-color:var(--accent)}
-.search .clear{position:absolute;right:6px;top:50%;margin-top:-18px;width:36px;height:36px;border:0;background:transparent;font-size:22px;color:var(--muted)}
-.iconbtn{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-size:16px;white-space:nowrap}
-.iconbtn:active{transform:scale(.97)}
-.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-.chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 18px;font-size:17px}
-.chip .n{color:var(--muted);font-size:14px;margin-left:4px}
-.chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.chip.on .n{color:inherit;opacity:.7}
-.count{color:var(--muted);font-size:15px;margin:6px 2px 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
-.card{display:block;text-align:left;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--muted);border-radius:12px;padding:14px 16px;min-height:112px}
-.card:active{transform:scale(.985)}
-.card h3{margin:0 0 6px;font-family:Georgia,"Times New Roman",serif;font-size:21px;line-height:1.2}
-.card .meta{font-size:14px;color:var(--muted)}
-.card .match{font-size:14px;margin-top:6px;color:var(--ink)}
-.card .match b{background:rgba(200,85,61,.18);font-weight:600;border-radius:3px;padding:0 2px}
-.c-Viande{border-left-color:var(--viande)} .c-Poisson{border-left-color:var(--poisson)}
-.c-Veggie{border-left-color:var(--veggie)} .c-Fromage{border-left-color:var(--fromage)}
-.t-Viande{color:var(--viande)} .t-Poisson{color:var(--poisson)} .t-Veggie{color:var(--veggie)} .t-Fromage{color:var(--fromage)}
-.empty{padding:40px;text-align:center;color:var(--muted);font-size:18px}
+/* ---------- Le livre ---------- */
+#book{position:absolute;top:16px;bottom:16px;left:50px;right:16px;display:-webkit-box;display:flex;
+  -webkit-perspective:2000px;perspective:2000px;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+.page{position:relative;z-index:1;-webkit-box-flex:0;flex:0 0 50%;width:50%;background:var(--paper);overflow:hidden}
+.page.left{border-radius:12px 0 0 12px;
+  background:linear-gradient(to left,rgba(70,50,30,.16),rgba(70,50,30,0) 9%),var(--paper);
+  box-shadow:-3px 0 0 #E6DFCF,-5px 0 0 #D8D0BD}
+.page.right{border-radius:0 12px 12px 0;
+  background:linear-gradient(to right,rgba(70,50,30,.16),rgba(70,50,30,0) 9%),var(--paper);
+  box-shadow:3px 0 0 #E6DFCF,5px 0 0 #D8D0BD}
+.spine{position:absolute;z-index:5;top:0;bottom:0;left:50%;width:44px;margin-left:-22px;pointer-events:none;
+  background:linear-gradient(to right,rgba(0,0,0,0),rgba(40,28,16,.10) 35%,rgba(40,28,16,.30) 50%,rgba(40,28,16,.10) 65%,rgba(0,0,0,0))}
+.pc{position:absolute;top:0;left:0;right:0;bottom:0;display:-webkit-box;display:flex;-webkit-box-orient:vertical;flex-direction:column}
 
-/* ---------- Recette (tient sur un écran) ---------- */
-#recipe{position:fixed;left:0;top:0;right:0;bottom:0;display:flex;flex-direction:column;background:var(--bg);overflow:hidden}
-#rbox{flex:1;display:flex;flex-direction:column;padding:.8em 1.2em .9em;min-height:0;font-size:20px}
-.rbar{display:flex;align-items:center;gap:.6em;flex-wrap:nowrap}
-.rbar .iconbtn{font-size:.8em;padding:.45em .8em}
-.rbar .sp{flex:1}
-.rhead{display:flex;align-items:flex-end;gap:1em;margin:.35em 0 .55em;border-bottom:2px solid var(--line);padding-bottom:.45em;flex-wrap:wrap}
-.rhead h2{font-family:Georgia,"Times New Roman",serif;font-size:1.9em;line-height:1.1;margin:0;flex:1;min-width:8em}
-.rinfo{display:flex;align-items:center;gap:.9em;font-size:.9em;color:var(--muted);white-space:nowrap}
-.rinfo .cat{font-weight:700}
-.stepper{display:flex;align-items:center;gap:.35em;color:var(--ink)}
-.stepper button{width:1.9em;height:1.9em;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-size:1em;line-height:1;padding:0}
-.stepper .pv{min-width:4.6em;text-align:center;font-weight:600}
+/* ---------- Onglets (marque-pages) ---------- */
+#tabs{position:absolute;z-index:0;left:-40px;top:34px;width:44px}
+.tab{display:block;position:relative;width:40px;height:96px;margin-bottom:6px;border-radius:9px 0 0 9px;
+  background:#D9D0BC;color:#4A4339;font-size:14px;font-weight:600;letter-spacing:.02em;
+  box-shadow:inset -6px 0 8px -6px rgba(0,0,0,.35);transition:left .2s,width .2s,background .2s}
+.tab span{position:absolute;left:50%;top:50%;white-space:nowrap;-webkit-transform:translate(-50%,-50%) rotate(-90deg);transform:translate(-50%,-50%) rotate(-90deg)}
+.tab i{font-style:italic;font-weight:400;opacity:.7;margin-left:5px}
+.tab.on{left:-6px;width:46px;background:var(--accent);color:#fff;box-shadow:inset -6px 0 8px -6px rgba(0,0,0,.4)}
+
+/* ---------- Page de gauche : sommaire ---------- */
+.page.left .pc{padding:4.2vh 6% 3.2vh 7%}
+.mast{display:-webkit-box;display:flex;-webkit-box-align:end;align-items:flex-end;justify-content:space-between;gap:12px}
+.mast h1{margin:0;font-size:6.4vh;font-weight:800;line-height:.95;letter-spacing:-.02em}
+.mast h1 em{color:var(--accent);font-style:italic;font-weight:700}
+.mast .sub{font-size:2vh;font-style:italic;color:var(--muted);text-align:right;line-height:1.3;padding-bottom:.4vh}
+.tools{display:-webkit-box;display:flex;align-items:center;gap:14px;margin:2.6vh 0 1.4vh;padding-bottom:1.6vh;border-bottom:1px solid var(--ink)}
+.search{-webkit-box-flex:1;flex:1;position:relative}
+.search input{width:100%;height:44px;border:0;border-bottom:1px dotted var(--muted);background:transparent;font-size:2.4vh;font-style:italic;padding:0 36px 0 2px;outline:none;border-radius:0;-webkit-appearance:none;-webkit-user-select:text;user-select:text}
+.search input:focus{border-bottom:1px solid var(--accent)}
+.search input::placeholder{color:var(--muted)}
+.search .clear{position:absolute;right:0;top:0;width:44px;height:44px;font-size:24px;color:var(--muted)}
+.link{min-height:44px;font-size:2.2vh;font-style:italic;font-weight:600;color:var(--accent);border-bottom:1px solid transparent;white-space:nowrap}
+.link:active{opacity:.6}
+.toc{list-style:none;margin:0;padding:0;-webkit-box-flex:1;flex:1;min-height:0;overflow:hidden}
+.row{position:relative;display:-webkit-box;display:flex;align-items:baseline;width:100%;text-align:left;padding:1.05vh 0 1.05vh 0;min-height:44px}
+.row .nm{font-size:2.75vh;font-weight:500;line-height:1.2}
+.row .ct{display:block;font-size:1.75vh;font-style:italic;color:var(--muted);font-weight:400;margin-top:.2vh}
+.row .ct b{color:var(--accent);font-weight:500}
+.row .dots{-webkit-box-flex:1;flex:1;min-width:18px;margin:0 8px;border-bottom:2px dotted #B9AF9C;-webkit-transform:translateY(-.5vh);transform:translateY(-.5vh)}
+.row .tm{font-size:2.3vh;font-style:italic;color:var(--muted);white-space:nowrap}
+.row.cur .nm{color:var(--accent);font-weight:700}
+.row.cur:before{content:"";position:absolute;left:-7.6%;top:.6vh;bottom:.6vh;width:10px;background:var(--accent);
+  border-radius:0 2px 2px 0}
+.empty{padding:4vh 0;font-style:italic;color:var(--muted);font-size:2.6vh}
+.pager{display:-webkit-box;display:flex;align-items:center;justify-content:space-between;padding-top:1.4vh;border-top:1px solid var(--ink)}
+.pager button{min-height:44px;min-width:44px;font-size:2.2vh;font-style:italic;font-weight:600}
+.pager button[disabled]{opacity:.25}
+.pager .pi{font-size:2vh;color:var(--muted);letter-spacing:.06em;font-variant:small-caps}
+
+/* ---------- Page de droite : fiche recette ---------- */
+.page.right .pc{padding:1em 7% .9em 6.5%;font-size:20px}
+.rtop{display:-webkit-box;display:flex;align-items:center;justify-content:space-between}
+.kicker{font-size:.72em;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.rtop .link{font-size:.75em}
+.rhead{display:-webkit-box;display:flex;gap:1em;align-items:flex-start}
+.rhead .ht{-webkit-box-flex:1;flex:1;min-width:0}
+.rhead h2{margin:.12em 0 .18em;font-size:2.05em;font-weight:800;line-height:1.02;letter-spacing:-.015em}
+.rmeta{display:-webkit-box;display:flex;align-items:center;gap:.55em;font-size:.8em;font-style:italic;color:var(--muted);flex-wrap:wrap}
+.stepper{display:-webkit-box;display:flex;align-items:center;gap:.25em;color:var(--ink);font-style:normal}
+.stepper button{width:44px;height:44px;font-size:1.3em;line-height:1;color:var(--accent);font-weight:600}
+.stepper .pv{min-width:4.2em;text-align:center;font-weight:600}
 .stepper .pv.changed{color:var(--accent)}
-.rcols{flex:1;display:flex;gap:1.6em;min-height:0}
+.photo{margin:0;-webkit-box-flex:0;flex:0 0 32%;background:#fff;padding:.35em .35em 1.1em;box-shadow:0 2px 6px rgba(0,0,0,.18);-webkit-transform:rotate(2deg);transform:rotate(2deg)}
+.photo img{display:block;width:100%;height:auto}
+.rcols{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex;gap:1.3em;min-height:0;margin-top:.55em;padding-top:.6em;border-top:1px solid var(--ink)}
 .rcol{min-height:0}
-.rcol.ing{flex:0 0 40%}
-.rcol.steps{flex:1}
-.rcol h4{margin:0 0 .35em;font-size:.72em;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.rcol.ing{-webkit-box-flex:0;flex:0 0 44%}
+.rcol.steps{-webkit-box-flex:1;flex:1}
+.rcol h4{margin:0 0 .3em;font-size:.68em;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 ul.ings{list-style:none;margin:0;padding:0}
-ul.ings li{padding:.2em 0 .2em 1.3em;position:relative;line-height:1.25;border-bottom:1px dashed var(--line)}
-ul.ings li:before{content:"";position:absolute;left:.1em;top:.48em;width:.6em;height:.6em;border:2px solid var(--muted);border-radius:3px}
+ul.ings li{position:relative;padding:.22em 0 .22em 1.35em;line-height:1.22;border-bottom:1px dotted var(--rule);cursor:pointer}
+ul.ings li:before{content:"";position:absolute;left:0;top:.45em;width:.7em;height:.7em;border:1.5px solid var(--ink);border-radius:1px}
 ul.ings li .q{font-weight:700}
-ul.ings li.ok{color:var(--done);text-decoration:line-through}
-ul.ings li.ok:before{background:var(--done);border-color:var(--done)}
-ol.steps{margin:0;padding:0;list-style:none;counter-reset:s}
-ol.steps li{counter-increment:s;position:relative;padding:.25em 0 .45em 2.1em;line-height:1.35}
-ol.steps li:before{content:counter(s);position:absolute;left:0;top:.2em;width:1.5em;height:1.5em;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.95em;display:flex;align-items:center;justify-content:center}
-ol.steps li.ok{color:var(--done)}
-ol.steps li.ok:before{background:var(--done)}
-.hint{font-size:.62em;color:var(--muted);margin-top:.5em}
-.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
-.toast.on{opacity:.92}
+ul.ings li.ok{color:var(--muted);text-decoration:line-through}
+ul.ings li.ok:before{background:var(--accent);border-color:var(--accent)}
+ul.ings li.ok:after{content:"";position:absolute;left:.24em;top:.52em;width:.2em;height:.38em;border:solid #fff;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);transform:rotate(45deg)}
+ol.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding:.18em 0 .5em 1.9em;line-height:1.34;cursor:pointer}
+ol.steps li:before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:.05em;font-size:1.25em;font-style:italic;font-weight:700;color:var(--accent);line-height:1.1}
+ol.steps li.ok{color:var(--muted);text-decoration:line-through}
+ol.steps li.ok:before{color:var(--muted)}
 
-/* Mode cuisine : seul l'essentiel reste visible */
-body.cuisine .rbar .hide-cuisine{display:none}
-body.cuisine .hint{display:none}
-body.cuisine #btnCuisine{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+/* ---------- Feuille qui tourne ---------- */
+.leaf{position:absolute;z-index:20;top:0;bottom:0;width:50%;pointer-events:none;
+  -webkit-transform-style:preserve-3d;transform-style:preserve-3d;will-change:transform}
+.leaf.R{left:50%;-webkit-transform-origin:left center;transform-origin:left center}
+.leaf.L{left:0;-webkit-transform-origin:right center;transform-origin:right center}
+.leaf.run{-webkit-transition:-webkit-transform .62s cubic-bezier(.35,.05,.25,1);transition:transform .62s cubic-bezier(.35,.05,.25,1)}
+.face{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;background:var(--paper);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.leaf.R .face.front{border-radius:0 12px 12px 0;background:linear-gradient(to right,rgba(70,50,30,.16),rgba(70,50,30,0) 9%),var(--paper)}
+.leaf.L .face.front{border-radius:12px 0 0 12px;background:linear-gradient(to left,rgba(70,50,30,.16),rgba(70,50,30,0) 9%),var(--paper)}
+.face.back{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
+.leaf.R .face.back{border-radius:12px 0 0 12px;background:linear-gradient(to left,rgba(70,50,30,.18),rgba(70,50,30,0) 12%),#F2EEE3}
+.leaf.L .face.back{border-radius:0 12px 12px 0;background:linear-gradient(to right,rgba(70,50,30,.18),rgba(70,50,30,0) 12%),#F2EEE3}
+.face:after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:#1a120a;opacity:0;-webkit-transition:opacity .62s;transition:opacity .62s}
+.leaf.shade .face.front:after{opacity:.22}
+.under{position:absolute;z-index:10;top:0;bottom:0;width:50%;overflow:hidden;pointer-events:none}
+.under.R{left:50%;border-radius:0 12px 12px 0;background:linear-gradient(to right,rgba(70,50,30,.16),rgba(70,50,30,0) 9%),var(--paper)}
+.under.L{left:0;border-radius:12px 0 0 12px;background:linear-gradient(to left,rgba(70,50,30,.16),rgba(70,50,30,0) 9%),var(--paper)}
+.leaf .pc,.under .pc{pointer-events:none}
 
-/* Portrait : colonnes empilées */
+/* ---------- Mode cuisine : la recette prend la double-page ---------- */
+body.cuisine #tabs,body.cuisine .page.left{display:none}
+body.cuisine #book{left:16px}
+body.cuisine .page.right{flex:0 0 100%;width:100%;border-radius:12px;box-shadow:none}
+body.cuisine .page.right .pc{padding:1em 4% .9em 4%}
+body.cuisine .rcols{gap:0}
+body.cuisine .rcol.ing{flex:0 0 50%;padding-right:5%}
+body.cuisine .rcol.steps{padding-left:5%}
+body.cuisine #btnCuisine{color:#fff;background:var(--accent);padding:0 .8em;border-radius:2px}
+
+.toast{position:fixed;left:50%;bottom:28px;-webkit-transform:translateX(-50%);transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:3px;font-size:15px;font-style:italic;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
+.toast.on{opacity:.94}
+
+/* ---------- Portrait : pages empilées ---------- */
 @media (orientation: portrait){
-  .rcols{flex-direction:column;gap:.7em}
-  .rcol.ing{flex:0 0 auto}
+  #book{left:16px;-webkit-box-orient:vertical;flex-direction:column}
+  #tabs{display:none}
+  .page{width:100%;flex:0 0 auto}
+  .page.left{height:42%;border-radius:12px 12px 0 0;box-shadow:none;background:var(--paper)}
+  .page.right{-webkit-box-flex:1;flex:1;border-radius:0 0 12px 12px;box-shadow:none;background:var(--paper);border-top:1px solid var(--rule)}
+  .spine{display:none}
+  .page.left .pc{padding:2.4vh 5%}
+  .mast h1{font-size:4.4vh} .row .nm{font-size:2vh} .row .tm{font-size:1.8vh}
 }
 </style>
 </head>
 <body>
 
-<div id="home">
-  <div class="top">
-    <h1>Mes <span>recettes</span></h1>
-    <div class="search">
-      <input id="q" type="text" placeholder="Chercher un plat ou un ingrédient (courgette, thon…)" autocomplete="off">
-      <button class="clear hidden" id="qclear" aria-label="Effacer">×</button>
+<div id="book">
+  <nav id="tabs" aria-label="Catégories"></nav>
+
+  <section class="page left" id="pageL" aria-label="Sommaire">
+    <div class="pc" id="lbox">
+      <header class="mast">
+        <h1>Mes <em>recettes</em></h1>
+        <div class="sub">Carnet de cuisine<br><span id="kcount"></span></div>
+      </header>
+      <div class="tools">
+        <div class="search" role="search">
+          <input id="q" type="text" placeholder="Chercher un plat, un ingrédient…" autocomplete="off" aria-label="Rechercher">
+          <button class="clear hidden" id="qclear" aria-label="Effacer">×</button>
+        </div>
+        <button class="link" id="btnRandom">Au hasard</button>
+      </div>
+      <ol class="toc" id="toc"></ol>
+      <footer class="pager">
+        <button id="prevP" aria-label="Page précédente">← Précédent</button>
+        <span class="pi" id="pinfo"></span>
+        <button id="nextP" aria-label="Page suivante">Suivant →</button>
+      </footer>
     </div>
-    <button class="iconbtn" id="btnRandom" title="Une recette au hasard">Au hasard</button>
-    <button class="iconbtn" id="btnFsHome" title="Plein écran">Plein écran</button>
-  </div>
-  <div class="chips" id="chips"></div>
-  <div class="count" id="count"></div>
-  <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="page right" id="pageR" aria-label="Recette">
+    <article class="pc" id="rbox">
+      <div class="rtop">
+        <span class="kicker" id="rcat"></span>
+        <button class="link" id="btnCuisine">Mode cuisine</button>
+      </div>
+      <div class="rhead">
+        <div class="ht">
+          <h2 id="rtitle"></h2>
+          <div class="rmeta">
+            <span id="rtime"></span><span>·</span>
+            <span class="stepper">
+              <button id="pminus" aria-label="Moins de personnes">−</button>
+              <span class="pv" id="pval" aria-live="polite"></span>
+              <button id="pplus" aria-label="Plus de personnes">+</button>
+            </span>
+          </div>
+        </div>
+        <figure class="photo hidden" id="rphoto"><img id="rimg" alt=""></figure>
+      </div>
+      <div class="rcols">
+        <div class="rcol ing"><h4>Ingrédients</h4><ul class="ings" id="ring"></ul></div>
+        <div class="rcol steps"><h4>Préparation</h4><ol class="steps" id="rsteps"></ol></div>
+      </div>
+    </article>
+  </section>
+
+  <div class="spine"></div>
 </div>
 
-<div id="recipe" class="hidden">
-  <div id="rbox">
-    <div class="rbar">
-      <button class="iconbtn hide-cuisine" id="btnBack">← Recettes</button>
-      <div class="sp"></div>
-      <button class="iconbtn hide-cuisine" id="btnFs">Plein écran</button>
-      <button class="iconbtn" id="btnCuisine">Mode cuisine</button>
-    </div>
-    <div class="rhead">
-      <h2 id="rtitle"></h2>
-      <div class="rinfo">
-        <span class="cat" id="rcat"></span>
-        <span id="rtime"></span>
-        <span class="stepper">
-          <button id="pminus" aria-label="Moins de personnes">−</button>
-          <span class="pv" id="pval"></span>
-          <button id="pplus" aria-label="Plus de personnes">+</button>
-        </span>
-      </div>
-    </div>
-    <div class="rcols">
-      <div class="rcol ing">
-        <h4>Ingrédients</h4>
-        <ul class="ings" id="ring"></ul>
-      </div>
-      <div class="rcol steps">
-        <h4>Préparation</h4>
-        <ol class="steps" id="rsteps"></ol>
-        <div class="hint">Astuce : touchez un ingrédient ou une étape pour le cocher.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script src="recettes.js"></script>
 <script>
-/* Code volontairement en JavaScript « ancien » (ES5) pour fonctionner sur les vieilles tablettes. */
+/* JavaScript volontairement « ancien » (ES5) pour les vieilles tablettes Android. */
 (function(){
   var R = window.RECETTES || [];
   var CATS = ['Viande','Poisson','Veggie','Fromage'];
-  var state = { cat: null, q: '', cur: null, pers: 4 };
-  var wakeLock = null;
+  var state = { cat:null, q:'', list:R.slice(0), page:0, per:8, cur:null, pers:4 };
+  var wakeLock = null, busy = false, pendingDir = null;
 
   function $(id){ return document.getElementById(id); }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
@@ -182,6 +236,8 @@ body.cuisine #btnCuisine{background:var(--accent);color:var(--accent-ink);border
     var t=$('toast'); t.textContent=msg; t.className='toast on';
     clearTimeout(toast._t); toast._t=setTimeout(function(){ t.className='toast'; },2200);
   }
+  function isPortrait(){ return window.innerHeight > window.innerWidth; }
+  function isCuisine(){ return document.body.className.indexOf('cuisine')>=0; }
 
   /* ---------- Quantités ---------- */
   var FR = [[0,''],[0.25,'¼'],[1/3,'⅓'],[0.5,'½'],[2/3,'⅔'],[0.75,'¾'],[1,'']];
@@ -206,62 +262,88 @@ body.cuisine #btnCuisine{background:var(--accent);color:var(--accent-ink);border
   }
   function ingText(it, k){
     if (it.q===null || it.q===undefined) return esc(it.p);
-    var v = it.q*k;
-    var qs = fmtQ(v, it.u);
-    var plural = it.u ? true : (parseFloat(v) >= 1.75);
+    var v = it.q*k, qs = fmtQ(v, it.u);
+    var plural = it.u ? true : (v >= 1.75);
     var txt = (!plural && it.s) ? it.s : it.p;
     return '<span class="q">'+esc(qs)+'</span> '+esc(txt);
   }
 
-  /* ---------- Accueil ---------- */
-  function renderChips(){
-    var h = '<button class="chip'+(state.cat?'':' on')+'" data-c="">Toutes<span class="n">'+R.length+'</span></button>';
+  /* ---------- Filtrage ---------- */
+  function filter(){
+    var q = norm(state.q.replace(/^\s+|\s+$/g,'')), words = q ? q.split(/\s+/) : [];
+    var out = [];
+    for (var i=0;i<R.length;i++){
+      var r = R[i]; if (state.cat && r.categorie!==state.cat) continue;
+      var hits = [], ok = true;
+      for (var w=0; w<words.length; w++){
+        var found = norm(r.titre).indexOf(words[w])>=0;
+        for (var k=0;k<r.ingredients.length;k++){
+          var t = r.ingredients[k].p;
+          if (norm(t).indexOf(words[w])>=0){ found=true; if (hits.indexOf(t)<0) hits.push(t); }
+        }
+        if (!found){ ok=false; break; }
+      }
+      if (ok) out.push({ r:r, hits:hits });
+    }
+    state.list = out;
+  }
+
+  /* ---------- Onglets ---------- */
+  function renderTabs(){
+    var h = '<button class="tab'+(state.cat?'':' on')+'" data-c=""><span>Toutes<i>'+R.length+'</i></span></button>';
     for (var i=0;i<CATS.length;i++){
       var n=0; for (var j=0;j<R.length;j++) if (R[j].categorie===CATS[i]) n++;
       if (!n) continue;
-      h += '<button class="chip'+(state.cat===CATS[i]?' on':'')+'" data-c="'+CATS[i]+'">'+CATS[i]+'<span class="n">'+n+'</span></button>';
+      h += '<button class="tab'+(state.cat===CATS[i]?' on':'')+'" data-c="'+CATS[i]+'"><span>'+CATS[i]+'<i>'+n+'</i></span></button>';
     }
-    $('chips').innerHTML = h;
-  }
-  function renderGrid(){
-    var q = norm(state.q.replace(/^\s+|\s+$/g,'')), words = q ? q.split(/\s+/) : [];
-    var out = [], h = '';
-    for (var i=0;i<R.length;i++){
-      var r = R[i];
-      if (state.cat && r.categorie!==state.cat) continue;
-      var hits = [];
-      if (words.length){
-        var ok = true;
-        for (var w=0; w<words.length; w++){
-          var found = norm(r.titre).indexOf(words[w])>=0;
-          for (var k=0;k<r.ingredients.length;k++){
-            var t = r.ingredients[k].p;
-            if (norm(t).indexOf(words[w])>=0){ found=true; if (hits.indexOf(t)<0) hits.push(t); }
-          }
-          if (!found){ ok=false; break; }
-        }
-        if (!ok) continue;
-      }
-      out.push(r);
-      h += '<button class="card c-'+r.categorie+'" data-id="'+r.id+'"><h3>'+esc(r.titre)+'</h3>'+
-           '<div class="meta"><span class="t-'+r.categorie+'">'+r.categorie+'</span> · '+r.temps+' min · '+r.portions+' pers. · '+r.ingredients.length+' ingrédients</div>'+
-           (hits.length ? '<div class="match">Contient : <b>'+hits.slice(0,3).map(esc).join('</b>, <b>')+'</b></div>' : '')+
-           '</button>';
-    }
-    $('grid').innerHTML = h || '<div class="empty">Aucune recette ne correspond.</div>';
-    $('count').textContent = out.length + (out.length>1?' recettes':' recette');
+    $('tabs').innerHTML = h;
   }
 
-  /* ---------- Recette ---------- */
+  /* ---------- Sommaire paginé ---------- */
+  function rowHTML(e){
+    var r = e.r, cur = state.cur && state.cur.id===r.id;
+    return '<li><button class="row'+(cur?' cur':'')+'" data-id="'+r.id+'"><span class="nm">'+esc(r.titre)+
+      (e.hits.length ? '<span class="ct">avec <b>'+e.hits.slice(0,2).map(esc).join('</b>, <b>')+'</b></span>' : '')+
+      '</span><span class="dots"></span><span class="tm">'+r.temps+' min</span></button></li>';
+  }
+  function computePer(){
+    var toc = $('toc');
+    if (!state.list.length){ state.per = 8; return; }
+    toc.innerHTML = rowHTML(state.list[0]);
+    var rh = toc.firstChild.offsetHeight || 40, avail = toc.clientHeight;
+    var n = Math.floor(avail / rh);
+    state.per = Math.max(4, Math.min(12, n));
+  }
+  function pages(){ return Math.max(1, Math.ceil(state.list.length / state.per)); }
+  function renderToc(){
+    var h = '', a = state.page*state.per, b = Math.min(state.list.length, a+state.per);
+    for (var i=a;i<b;i++) h += rowHTML(state.list[i]);
+    $('toc').innerHTML = h || '<li class="empty">Aucune recette ne correspond.</li>';
+    $('pinfo').textContent = 'page ' + (state.page+1) + ' / ' + pages();
+    $('prevP').disabled = state.page<=0;
+    $('nextP').disabled = state.page>=pages()-1;
+    var n = state.list.length;
+    $('kcount').textContent = n===R.length ? R.length+' recettes' : n+' sur '+R.length;
+  }
+  function pageOf(id){ for (var i=0;i<state.list.length;i++) if (state.list[i].r.id===id) return Math.floor(i/state.per); return -1; }
+  function refreshLeft(keepPage){
+    computePer();
+    if (!keepPage){ var p = state.cur ? pageOf(state.cur.id) : -1; state.page = p>=0 ? p : 0; }
+    if (state.page > pages()-1) state.page = pages()-1;
+    renderToc();
+  }
+
+  /* ---------- Fiche recette ---------- */
   function byId(id){ for (var i=0;i<R.length;i++) if (R[i].id===id) return R[i]; return null; }
   function renderRecipe(){
     var r = state.cur; if (!r) return;
     var k = state.pers / r.portions;
     $('rtitle').textContent = r.titre;
-    $('rcat').textContent = r.categorie; $('rcat').className = 'cat t-'+r.categorie;
+    $('rcat').textContent = r.categorie;
     $('rtime').textContent = r.temps+' min';
-    $('pval').textContent = state.pers + (state.pers>1?' pers.':' pers.');
+    $('pval').textContent = state.pers + ' pers.';
     $('pval').className = 'pv' + (state.pers!==r.portions?' changed':'');
+    if (r.image){ $('rimg').src = r.image; $('rphoto').className='photo'; } else { $('rphoto').className='photo hidden'; $('rimg').removeAttribute('src'); }
     var h='';
     for (var i=0;i<r.ingredients.length;i++) h += '<li>'+ingText(r.ingredients[i],k)+'</li>';
     $('ring').innerHTML = h;
@@ -270,13 +352,11 @@ body.cuisine #btnCuisine{background:var(--accent);color:var(--accent-ink);border
     $('rsteps').innerHTML = h;
     fit();
   }
-  /* Ajuste la taille du texte pour que la recette tienne sur un seul écran. */
+  /* La fiche tient toujours sur la page : on réduit le texte si besoin. */
   function fit(){
-    var box = $('rbox'); if ($('recipe').className.indexOf('hidden')>=0) return;
-    var W = window.innerWidth, H = window.innerHeight;
-    var cuisine = document.body.className.indexOf('cuisine')>=0;
-    var size = Math.min(W/(cuisine?34:40), H/(cuisine?17:20));
-    size = Math.max(12, Math.min(size, 44));
+    var box = $('rbox'), W = box.clientWidth, H = window.innerHeight;
+    var size = isCuisine() ? Math.min(W/34, H/17) : Math.min(W/26, H/22);
+    size = Math.max(12, Math.min(size, 40));
     box.style.fontSize = size+'px';
     var cols = box.querySelectorAll('.rcol'), guard = 0;
     function over(){
@@ -287,19 +367,98 @@ body.cuisine #btnCuisine{background:var(--accent);color:var(--accent-ink);border
     while (over() && size > 11 && guard < 80){ size -= 0.5; box.style.fontSize = size+'px'; guard++; }
   }
 
+  /* ---------- Feuille qui tourne (CSS 3D) ---------- */
+  function snap(pageEl){
+    var src = pageEl.querySelector('.pc'), c = src.cloneNode(true);
+    var ins = src.querySelectorAll('input'), cins = c.querySelectorAll('input');
+    for (var i=0;i<ins.length;i++) cins[i].value = ins[i].value;
+    var ids = c.querySelectorAll('[id]');
+    for (var j=0;j<ids.length;j++) ids[j].removeAttribute('id');
+    c.removeAttribute('id');
+    return c;
+  }
+  function flip(side, mode, update){
+    var book = $('book'), pageEl = side==='R' ? $('pageR') : $('pageL');
+    if (busy || isPortrait() || isCuisine()){ update(); return; }
+    busy = true;
+    var sign = side==='R' ? -1 : 1, under = null;
+    var leaf = document.createElement('div'); leaf.className = 'leaf '+side;
+    var front = document.createElement('div'); front.className = 'face front';
+    var back = document.createElement('div'); back.className = 'face back';
+    leaf.appendChild(front); leaf.appendChild(back);
+    if (mode==='away'){
+      front.appendChild(snap(pageEl));
+      update();
+      leaf.style.webkitTransform = leaf.style.transform = 'rotateY(0deg)';
+    } else {
+      under = document.createElement('div'); under.className = 'under '+side;
+      under.appendChild(snap(pageEl)); book.appendChild(under);
+      update();
+      front.appendChild(snap(pageEl));
+      leaf.style.webkitTransform = leaf.style.transform = 'rotateY('+(sign*180)+'deg)';
+    }
+    book.appendChild(leaf);
+    void leaf.offsetWidth;
+    leaf.className += ' run' + (mode==='away' ? ' shade' : '');
+    var end = mode==='away' ? sign*180 : 0;
+    leaf.style.webkitTransform = leaf.style.transform = 'rotateY('+end+'deg)';
+    var done = false;
+    function finish(){
+      if (done) return; done = true;
+      if (leaf.parentNode) leaf.parentNode.removeChild(leaf);
+      if (under && under.parentNode) under.parentNode.removeChild(under);
+      busy = false;
+    }
+    if (mode==='arrive'){ setTimeout(function(){ if (under && under.parentNode) under.parentNode.removeChild(under); under=null; }, 330); }
+    leaf.addEventListener('transitionend', finish); leaf.addEventListener('webkitTransitionEnd', finish);
+    setTimeout(finish, 900);
+  }
+
+  function goPage(delta){
+    var np = state.page + delta;
+    if (np<0 || np>pages()-1) return;
+    flip('L', delta>0 ? 'arrive' : 'away', function(){ state.page = np; renderToc(); });
+  }
+  function showRecipe(r, dir){
+    flip('R', dir==='prev' ? 'arrive' : 'away', function(){
+      state.cur = r; state.pers = r.portions; renderRecipe();
+      var p = pageOf(r.id);
+      if (p>=0 && p!==state.page) state.page = p;
+      renderToc();
+    });
+  }
+  function select(id, dir){
+    if (state.cur && state.cur.id===id) return;
+    pendingDir = dir || null;
+    location.hash = '#/'+id;
+  }
+  function stepRecipe(delta){
+    var L = state.list.length ? state.list : R.map(function(r){ return {r:r}; });
+    var idx = -1; for (var i=0;i<L.length;i++) if (state.cur && L[i].r.id===state.cur.id) idx=i;
+    var n = idx + delta; if (n<0 || n>=L.length) return;
+    select(L[n].r.id, delta<0 ? 'prev' : 'next');
+  }
+  function route(){
+    var m = location.hash.match(/^#\/(.+)$/);
+    var r = m ? byId(decodeURIComponent(m[1])) : null;
+    if (!r) r = state.list.length ? state.list[0].r : R[0];
+    if (!r) return;
+    if (!state.cur){ state.cur = r; state.pers = r.portions; renderRecipe(); refreshLeft(false); return; }
+    if (r.id !== state.cur.id){ showRecipe(r, pendingDir); }
+    pendingDir = null;
+  }
+
   /* ---------- Plein écran & écran allumé ---------- */
   function isFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
   function enterFs(){
     var el = document.documentElement;
     var f = el.requestFullscreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen;
     if (f) { try { var p = f.call(el); if (p && p['catch']) p['catch'](function(){}); } catch(e){} }
-    else toast('Plein écran non disponible : ajoutez le site à l’écran d’accueil');
   }
   function exitFs(){
     var f = document.exitFullscreen || document.webkitExitFullscreen || document.webkitCancelFullScreen;
     if (f && isFs()) { try { var p=f.call(document); if (p && p['catch']) p['catch'](function(){}); } catch(e){} }
   }
-  function toggleFs(){ isFs() ? exitFs() : enterFs(); }
   function lockScreen(){
     if (navigator.wakeLock && navigator.wakeLock.request){
       navigator.wakeLock.request('screen').then(function(l){ wakeLock=l; toast('Mode cuisine : l’écran reste allumé'); })
@@ -309,53 +468,69 @@ body.cuisine #btnCuisine{background:var(--accent);color:var(--accent-ink);border
   function unlockScreen(){ if (wakeLock){ try{ wakeLock.release(); }catch(e){} wakeLock=null; } }
   function setCuisine(on){
     var b = document.body;
-    if (on){ if (b.className.indexOf('cuisine')<0) b.className += ' cuisine'; $('btnCuisine').textContent='× Quitter le mode cuisine'; enterFs(); lockScreen(); }
-    else { b.className = b.className.replace(/\s*cuisine/g,''); $('btnCuisine').textContent='Mode cuisine'; unlockScreen(); }
-    setTimeout(fit, 350);
+    if (on){ if (!isCuisine()) b.className += ' cuisine'; $('btnCuisine').textContent='Quitter le mode cuisine'; enterFs(); lockScreen(); }
+    else { b.className = b.className.replace(/\s*cuisine/g,''); $('btnCuisine').textContent='Mode cuisine'; unlockScreen(); exitFs(); }
+    setTimeout(function(){ fit(); refreshLeft(true); }, 350);
   }
   document.addEventListener('visibilitychange', function(){
-    if (document.visibilityState==='visible' && document.body.className.indexOf('cuisine')>=0 && !wakeLock) lockScreen();
+    if (document.visibilityState==='visible' && isCuisine() && !wakeLock) lockScreen();
   });
 
-  /* ---------- Navigation (#/id) ---------- */
-  function route(){
-    var m = location.hash.match(/^#\/(.+)$/);
-    var r = m ? byId(decodeURIComponent(m[1])) : null;
-    if (r){
-      state.cur = r; state.pers = r.portions;
-      $('home').className='hidden'; $('recipe').className='';
-      renderRecipe();
-    } else {
-      if (document.body.className.indexOf('cuisine')>=0) setCuisine(false);
-      state.cur = null; $('recipe').className='hidden'; $('home').className='';
-    }
-  }
-
   /* ---------- Événements ---------- */
-  $('chips').onclick = function(e){
-    var t = e.target; while (t && t!==this && !(t.hasAttribute && t.hasAttribute('data-c'))) t=t.parentNode;
-    if (!t || t===this) return;
-    state.cat = t.getAttribute('data-c') || null; renderChips(); renderGrid();
+  function closest(t, root, test){ while (t && t!==root){ if (test(t)) return t; t=t.parentNode; } return null; }
+  $('tabs').onclick = function(e){
+    var t = closest(e.target, this, function(n){ return n.hasAttribute && n.hasAttribute('data-c'); });
+    if (!t) return;
+    var c = t.getAttribute('data-c') || null; if (c===state.cat) return;
+    flip('L', 'arrive', function(){ state.cat = c; renderTabs(); filter(); refreshLeft(false); });
   };
-  $('grid').onclick = function(e){
-    var t = e.target; while (t && t!==this && !t.getAttribute('data-id')) t=t.parentNode;
-    if (t && t!==this) location.hash = '#/'+t.getAttribute('data-id');
+  $('toc').onclick = function(e){
+    var t = closest(e.target, this, function(n){ return n.getAttribute && n.getAttribute('data-id'); });
+    if (t) select(t.getAttribute('data-id'), 'next');
   };
-  $('q').oninput = function(){ state.q = this.value; $('qclear').className = 'clear'+(this.value?'':' hidden'); renderGrid(); };
-  $('qclear').onclick = function(){ $('q').value=''; state.q=''; this.className='clear hidden'; renderGrid(); };
-  $('btnRandom').onclick = function(){ var r = R[Math.floor(Math.random()*R.length)]; if (r) location.hash='#/'+r.id; };
-  $('btnFsHome').onclick = toggleFs;
-  $('btnFs').onclick = toggleFs;
-  $('btnBack').onclick = function(){ location.hash = ''; };
-  $('btnCuisine').onclick = function(){ setCuisine(document.body.className.indexOf('cuisine')<0); };
+  $('q').oninput = function(){ state.q = this.value; $('qclear').className = 'clear'+(this.value?'':' hidden'); filter(); state.page=0; refreshLeft(true); };
+  $('qclear').onclick = function(){ $('q').value=''; state.q=''; this.className='clear hidden'; filter(); refreshLeft(false); };
+  $('btnRandom').onclick = function(){
+    var L = state.list.length ? state.list : R.map(function(r){ return {r:r}; });
+    if (L.length<2) return; var r;
+    do { r = L[Math.floor(Math.random()*L.length)].r; } while (state.cur && r.id===state.cur.id);
+    select(r.id, 'next');
+  };
+  $('prevP').onclick = function(){ goPage(-1); };
+  $('nextP').onclick = function(){ goPage(1); };
+  $('btnCuisine').onclick = function(){ setCuisine(!isCuisine()); };
   $('pminus').onclick = function(){ if (state.pers>1){ state.pers--; renderRecipe(); } };
   $('pplus').onclick = function(){ if (state.pers<12){ state.pers++; renderRecipe(); } };
   function toggleOk(e){ var t=e.target; while (t && t.tagName!=='LI' && t!==this) t=t.parentNode; if (t && t.tagName==='LI') t.className = t.className==='ok' ? '' : 'ok'; }
   $('ring').onclick = toggleOk; $('rsteps').onclick = toggleOk;
-  window.onhashchange = route;
-  window.onresize = function(){ clearTimeout(fit._t); fit._t = setTimeout(fit, 150); };
 
-  renderChips(); renderGrid(); route();
+  /* Glisser du doigt : sur le sommaire = pages, sur la fiche = recette suivante / précédente */
+  var tx=0, ty=0, tside=null;
+  $('book').addEventListener('touchstart', function(e){
+    var t = e.touches[0]; tx = t.clientX; ty = t.clientY;
+    var rect = $('book').getBoundingClientRect();
+    tside = isCuisine() ? 'R' : (t.clientX < rect.left + rect.width/2 ? 'L' : 'R');
+  }, {passive:true});
+  $('book').addEventListener('touchend', function(e){
+    var t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy)*1.5) return;
+    if (document.activeElement && document.activeElement.id==='q') return;
+    var delta = dx < 0 ? 1 : -1;
+    if (tside==='L') goPage(delta); else stepRecipe(delta);
+  }, {passive:true});
+  document.addEventListener('keydown', function(e){
+    if (document.activeElement && document.activeElement.id==='q') return;
+    if (e.keyCode===39) stepRecipe(1); else if (e.keyCode===37) stepRecipe(-1);
+    else if (e.keyCode===34) goPage(1); else if (e.keyCode===33) goPage(-1);
+  });
+
+  window.onhashchange = route;
+  window.onresize = function(){ clearTimeout(fit._t); fit._t = setTimeout(function(){ fit(); refreshLeft(true); }, 150); };
+
+  renderTabs(); filter(); route();
+  function refitAll(){ fit(); refreshLeft(true); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refitAll);
+  window.addEventListener('load', refitAll);
 })();
 </script>
 </body>
